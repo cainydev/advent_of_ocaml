@@ -1,0 +1,4 @@
+(library
+ (name aoc_lib)
+ (modules_without_implementation day)
+ (libraries base stdio))

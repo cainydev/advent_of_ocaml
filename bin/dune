@@ -1,0 +1,15 @@
+(rule
+ (targets registry.ml)
+ (mode promote)
+ (deps
+  (:codegen ../codegen/gen_registry.exe) 
+  (source_tree ../days))
+ (action
+  (with-stdout-to %{targets}
+   (run %{codegen} ../days))))
+
+(executable
+ (name main)
+ (public_name day)
+ (modules main registry)
+ (libraries aoc_days aoc_lib unix))
