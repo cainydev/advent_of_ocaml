@@ -27,27 +27,25 @@ let parse_input (input: string): t =
   )
 
 let part1 (input: t): string =
-  let grid = Array.make_matrix ~dimx:1000 ~dimy:1000 false in
+  let grid = Grid.make 1000 1000 false in
   List.iter input ~f:(fun (op, (x1, y1), (x2, y2)) ->
     for x = x1 to x2 do
       for y = y1 to y2 do
-        match op with
-        | On -> grid.(x).(y) <- true
-        | Off -> grid.(x).(y) <- false
-        | Toggle -> grid.(x).(y) <- not grid.(x).(y)
+        let current = Grid.get grid (x, y) in
+        let new_val = match op with
+          | On -> true
+          | Off -> false
+          | Toggle -> not current
+        in
+        Grid.set grid (x, y) new_val
       done
     done
   );
-  let count = ref 0 in
-  for x = 0 to 999 do
-    for y = 0 to 999 do
-      if grid.(x).(y) then Int.incr count
-    done
-  done;
-  Int.to_string !count
+  Grid.fold (fun _ value acc -> if value then acc + 1 else acc) grid 0
+  |> Int.to_string
 
 let part2 (input: t): string =
-  let grid = Array.make_matrix ~dimx:1000 ~dimy:1000 0 in
+  let grid = Grid.make 1000 1000 0 in
   List.iter input ~f:(fun (op, (x1, y1), (x2, y2)) ->
     for x = x1 to x2 do
       for y = y1 to y2 do
