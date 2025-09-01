@@ -40,7 +40,7 @@ make run        # Run all days
 make run 7      # Run day 7
 make run 7 1    # Run day 7 part 1
 make day 8      # Create day 8 scaffolding
-make clean      # Clean build artifactsCopilot said: ```markdown name=README.md # 🎄 Advent of OCaml 🎄 A
+make clean      # Clean build artifacts
 ```
 
 ## 🛠️ Workflow
