@@ -15,11 +15,16 @@ let () =
         String.starts_with ~prefix:"Day" f || String.starts_with ~prefix:"day" f)
     |> List.map Filename.remove_extension
     |> List.sort String.compare
+    |> List.fold_left (fun acc m ->
+      Array.set acc (int_of_string (String.sub m 3 2) - 1) (Some m); acc
+    ) (Array.init 25 (Fun.const None))
+
   in
 
-  (* 2. Print the generated code to standard output. Do not open any files. *)
-  print_endline "let days : (module Aoc_lib.Day.S) array = [|";
-  List.iter (fun m ->
-    Printf.printf "  (module Aoc_days.%s.Main);\n" (String.capitalize_ascii m)
+  print_endline "let days : (module Day.S) option array = [|";
+  Array.iter (fun m ->
+    match m with
+    | Some m -> Printf.printf "\tSome (module Aoc_days.%s.Solution);\n" (String.capitalize_ascii m)
+    | None -> Printf.printf "\tNone;\n"
   ) day_modules;
   print_endline "|]"

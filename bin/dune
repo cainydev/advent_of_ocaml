@@ -1,15 +1,49 @@
+(executable
+ (name gen_registry)
+ (modules gen_registry)
+ (libraries base stdio))
+
 (rule
  (targets registry.ml)
  (mode promote)
  (deps
-  (:codegen ../codegen/gen_registry.exe) 
+  (:codegen gen_registry.exe) 
   (source_tree ../days))
  (action
   (with-stdout-to %{targets}
    (run %{codegen} ../days))))
 
+(library
+ (name day)
+ (modules day)
+ (modules_without_implementation day))
+
+(library
+ (name env_manager)
+ (modules env_manager))
+
+(library
+ (name registry)
+ (modules registry)
+ (libraries day aoc_days))
+
+(library
+  (name fetch)
+  (modules fetch)
+  (libraries base curl str stdio))
+
 (executable
  (name main)
- (public_name day)
- (modules main registry)
- (libraries aoc_days aoc_lib unix))
+ (public_name main)
+ (modules main)
+ (libraries base stdio aoc_lib unix env_manager fetch day registry))
+
+(executable
+ (name gen_day)
+ (public_name gen_day)
+ (modules gen_day)
+ (libraries base stdio unix env_manager fetch))
+
+(rule
+  (alias aoc)
+  (action (run %{bin:main})))

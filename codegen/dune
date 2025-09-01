@@ -1,6 +1,0 @@
-(executable
- (name gen_registry)
- (modules gen_registry)
- (libraries unix))
-
-
