@@ -13,6 +13,7 @@ A clean, efficient OCaml template for solving Advent of Code puzzles with automa
 ## 🚀 Quick Start
 
 ### 🔧 Ensure Make is installed
+
 ```bash
 # Arch Linux
 sudo pacman -S make
@@ -21,20 +22,24 @@ sudo pacman -S make
 sudo apt install make
 
 # macOS
-xcode-select --install
+brew install make
 ```
 
 ### 📦 Install Dependencies
+
 ```bash
 opam install dune base re lwt lwt_ppx cohttp-lwt-unix
 ```
+
 ### 🍪 Getting Your Session Cookie
+
 1. Go to Advent of Code and log in
 2. Open dev tools (F12) → Application → Cookies → adventofcode.com
 3. Copy the session cookie value
 4. Paste when prompted (saved automatically)
 
 ## 🔧 Commands
+
 ```bash
 make run        # Run all days
 make run 7      # Run day 7
@@ -44,6 +49,7 @@ make clean      # Clean build artifacts
 ```
 
 ## 🛠️ Workflow
+
 1. Create day: make day 5
 2. Define type t for your input format
 3. Implement parse_input to transform raw string → t
@@ -51,6 +57,7 @@ make clean      # Clean build artifacts
 5. Run: make run 5
 
 ## 📁 Structure
+
 ```
 ├── bin/                    # Scripts (don't touch)
 ├── lib/helpers.ml          # Shared utilities & algorithms  
@@ -58,7 +65,9 @@ make clean      # Clean build artifacts
 ```
 
 ## 📝 Day Template
+
 Each day follows this pattern:
+
 ```ocaml
 open Base
 open Aoc_lib.Helpers
