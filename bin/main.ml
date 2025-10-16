@@ -25,7 +25,7 @@ let print_usage () =
   printf "   If no arguments are given, all days will run consecutively.\n"
 
 let print_header () =
-  printf "⁘⁙⁘⁙⁘ Advent of Code %d ⁘⁙⁘⁙⁘\n" (Env_manager.get_env_int "YEAR" |> Option.value ~default:last_year)
+  printf "⁘⁙⁘⁙⁘ Advent of Code %d ⁘⁙⁘⁙⁘%!\n" (Env_manager.get_env_int "YEAR" |> Option.value ~default:last_year)
 
 let run_part day_module day_num part_num =
   let module D = (val day_module : Day.S) in
@@ -34,53 +34,57 @@ let run_part day_module day_num part_num =
   let input = In_channel.read_lines input_file |> String.concat ~sep:"\n" in
   let result, duration = time solver (D.parse_input input) in
   if part_num = 1 then
-    printf "├─ Part 1 ⇒ %-20s (took %.4f ms)\n" result (duration *. 1000.0)
+    printf "├─ Part 1 ⇒ %-20s (took %.4f ms)%!\n" result (duration *. 1000.0)
   else
-  printf "└─ Part 2 ⇒ %-20s (took %.4f ms)\n" result (duration *. 1000.0)
+  printf "└─ Part 2 ⇒ %-20s (took %.4f ms)%!\n" result (duration *. 1000.0)
 
 let run_part_alone day_module day_num part_num =
   let module D = (val day_module : Day.S) in
   let solver = if part_num = 1 then D.part1 else D.part2 in
   let input_file = Printf.sprintf "days/day%02d/input.txt" day_num in
-  printf " Day %d\n" day_num;
+  printf " Day %d%!\n" day_num;
   try
     let input = In_channel.read_lines input_file |> String.concat ~sep:"\n" in
     let result, duration = time solver (D.parse_input input) in
-    printf "└─ Part %d ⇒ %-20s (took %.4f ms)\n" part_num result (duration *. 1000.0)
+    printf "└─ Part %d ⇒ %-20s (took %.4f ms)%!\n" part_num result (duration *. 1000.0)
   with
   | exn ->
-      printf "└─ Part %d - ERROR: %s\n" part_num (Exn.to_string exn)
+      printf "└─ Part %d - ERROR: %s%!\n" part_num (Exn.to_string exn)
 
 let run_day day_module day_num =
-  printf " Day %d\n" day_num;
+  printf " Day %d%!\n" day_num;
   run_part day_module day_num 1;
   run_part day_module day_num 2;
   print_endline ""
 
 let run_day_safe day_module day_num =
-  printf " Day %d\n" day_num;
+  printf " Day %d%!\n" day_num;
   (try
     run_part day_module day_num 1;
   with 
   | exn -> 
-      printf "├─ Part 1 - ERROR: %s" (Exn.to_string exn);
-      print_endline "";
+      printf "├─ Part 1 - ERROR: %s%!\n" (Exn.to_string exn);
   );
   (try
     run_part day_module day_num 2;
     print_endline ""
   with 
   | exn -> 
-      printf "└─ Part 2 - ERROR: %s\n" (Exn.to_string exn);
+      printf "└─ Part 2 - ERROR: %s%!\n" (Exn.to_string exn);
       print_endline "")
 
 let run_all_days () =
-  Array.iteri ~f:(fun i day_module ->
-    let day_num = i + 1 in
-    match day_module with
-    | Some m -> run_day_safe m day_num
-    | None -> ()
-  ) Registry.days
+  let (_, t) = time (fun () ->
+    Array.iteri ~f:(fun i day_module ->
+      let day_num = i + 1 in
+      match day_module with
+      | Some m -> run_day_safe m day_num
+      | None -> ()
+    ) Registry.days
+  ) ()
+  in
+  printf " Total time: %.4fs%!\n" t
+
 
 let get_input_opt day file =
   let input_file = Printf.sprintf "days/day%02d/%s" day file in

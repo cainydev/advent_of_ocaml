@@ -80,9 +80,6 @@ let () =
     |> Option.value_exn ~message:"SESSION environment variable is not set."
   in
   
-  printf "Using session: %s\n" session;
-  printf "Using year: %d\n" year;
-
   Fetch.set_session session;
   Fetch.set_year year;
   
