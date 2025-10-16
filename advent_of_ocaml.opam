@@ -5,11 +5,10 @@ description: "A longer description"
 authors: ["John Wagner <wajo432@gmail.com>"]
 license: "LICENSE"
 tags: ["add topics" "to describe" "your" "project"]
-homepage: "https://github.com/cainydev/advent_of_code_2015"
-bug-reports: "https://github.com/cainydev/advent_of_code_2015/issues"
+homepage: "https://github.com/cainydev/advent_of_ocaml"
+bug-reports: "https://github.com/cainydev/advent_of_ocaml/issues"
 depends: [
   "dune" {>= "3.19"}
-  "ocaml"
   "odoc" {with-doc}
 ]
 build: [
@@ -26,5 +25,5 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/cainydev/advent_of_code_2015.git"
+dev-repo: "git+https://github.com/cainydev/advent_of_ocaml.git"
 x-maintenance-intent: ["(latest)"]
