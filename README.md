@@ -1,4 +1,4 @@
-# 🎄 Advent of OCaml 🎄
+# 🎄 Advent of OCaml
 
 A clean, efficient OCaml template for solving Advent of Code puzzles with automatic input fetching and smooth development workflow.
 
@@ -50,11 +50,11 @@ make clean      # Clean build artifacts
 
 ## 🛠️ Workflow
 
-1. Create day: make day 5
+1. Create day: `make day 5`
 2. Define type t for your input format
 3. Implement parse_input to transform raw string → t
 4. Solve part1 and part2
-5. Run: make run 5
+5. Run: `make run 5`
 
 ## 📁 Structure
 
