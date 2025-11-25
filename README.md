@@ -29,7 +29,7 @@ opam install dune base re lwt lwt_ppx cohttp-lwt-unix
 1. Go to [Advent of Code](https://adventofcode.com) and log in
 2. Open dev tools (F12) → Application → Cookies → adventofcode.com
 3. Copy the session cookie value
-4. Run a command (e.g., `make day 1`); you will be prompted to paste the cookie once.
+4. Run a command (e.g., `make run`); you will be prompted to paste the cookie once.
 
 ### Available Commands
 
