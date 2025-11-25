@@ -1,18 +1,12 @@
 # 🎄 Advent of OCaml
 
-A clean, efficient OCaml template for solving Advent of Code puzzles with automatic input fetching and smooth development workflow.
+A clean OCaml (+ JaneStreet Base) template for Advent of Code, featuring automatic input fetching, execution timing, and a consistent type-safe pattern for solutions.
 
-## ✨ Features
+### [Use this Template](https://github.com/new?template_name=advent_of_ocaml&template_owner=cainydev)
+And then read the instructions. Or the other way around, it doesn't matter.
 
-- 🚀 Auto setup with year/session prompts
-- 📥 Automatic input downloading & caching
-- 🏃 Fast execution with timing
-- 🎯 Clean error handling
-- 📁 Consistent day structure with `type t` pattern
-
-## 🚀 Quick Start
-
-### 🔧 Ensure Make is installed
+### Prerequisites
+Ensure you have `make` installed:
 
 ```bash
 # Arch Linux
@@ -25,20 +19,19 @@ sudo apt install make
 brew install make
 ```
 
-### 📦 Install Dependencies
-
+Install the dependencies on your opam switch:
 ```bash
 opam install dune base re lwt lwt_ppx cohttp-lwt-unix
 ```
 
-### 🍪 Getting Your Session Cookie
+### Get your session cookie
 
-1. Go to Advent of Code and log in
+1. Go to [Advent of Code](https://adventofcode.com) and log in
 2. Open dev tools (F12) → Application → Cookies → adventofcode.com
 3. Copy the session cookie value
-4. Paste when prompted (saved automatically)
+4. Run a command (e.g., `make day 1`); you will be prompted to paste the cookie once.
 
-## 🔧 Commands
+### Available Commands
 
 ```bash
 make run        # Run all days
@@ -48,7 +41,13 @@ make day 8      # Create day 8 scaffolding
 make clean      # Clean build artifacts
 ```
 
-## 🛠️ Workflow
+### Development Workflow
+
+The template enforces a pattern using a custom type t to separate parsing from logic.
+- Parse: Define type t in solution.ml to match the day's data structure. Implement parse_input to convert the raw string into t.
+- Solve: Implement part1 and part2. Both functions accept t and must return a string.
+
+For example:
 
 1. Create day: `make day 5`
 2. Define type t for your input format
@@ -56,17 +55,20 @@ make clean      # Clean build artifacts
 4. Solve part1 and part2
 5. Run: `make run 5`
 
-## 📁 Structure
+### Directory Structure
 
 ```
-├── bin/                    # Scripts (don't touch)
-├── lib/helpers.ml          # Shared utilities & algorithms  
-├── days/dayXX/solution.ml  # Your solutions
+├── bin/                 # This repo's scripts (don't touch)
+├── lib/helpers.ml       # Shared utilities & algorithms
+└── days/
+    └── dayXX/
+        ├── input.txt    # The fetched input 
+        └── solution.ml  # Daily implementation
 ```
 
-## 📝 Day Template
+### Day Template
 
-Each day follows this pattern:
+Your solution file will look like this:
 
 ```ocaml
 open Base
