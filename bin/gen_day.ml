@@ -45,6 +45,10 @@ let fetch_input day =
   | Error e -> printf "Could not fetch example for day %d.\n" day
 
 let create_day_module year day =
+  if year >= 2025 && day > 12 then
+    failwith "Year 2025 and beyond sadly only have puzzles up to day 12."
+  else
+
   let folder = folder_path day in
     if not (Stdlib.Sys.file_exists folder) then Stdlib.Sys.mkdir folder 0o755;
 
