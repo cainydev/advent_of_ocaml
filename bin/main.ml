@@ -5,8 +5,7 @@ let args = Sys.get_argv ()
 
 let last_year = 
   let today = Unix.time () |> Unix.localtime in
-  let month = today.tm_mon + 1 in
-  if month = 12 then today.tm_year + 1900 else today.tm_year + 1899
+  today.tm_year + 1900
 
 module Fetch = Fetch.Make(struct
   let year = Env_manager.get_env_int "YEAR" |> Option.value ~default:last_year
